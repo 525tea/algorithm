@@ -18,7 +18,7 @@
 | 12   | 기본 | [괄호](https://www.acmicpc.net/problem/9012) | 9012 | 실버 4 |  | 4949 유사, 생각 좀 하자 ㅋㅋ |  |
 | 13   | 기본✔ | [쇠막대기](https://www.acmicpc.net/problem/10799) | 10799 | 실버 2 |  | 스큐덱의 호환 | ✅ |
 | 14   | 기본✔ | [괄호의 값](https://www.acmicpc.net/problem/2504) | 2504 | 골드 5 |  |  | ✅ |
-| 15   | 기본 | [도키도키 간식드리미](https://www.acmicpc.net/problem/12789) | 12789 | 실버 3 |  |  | ✅ |  
+| 15   | 기본 | [도키도키 간식드리미](https://www.acmicpc.net/problem/12789) | 12789 | 실버 3 |  |  |  |  
 
 <br>
 
