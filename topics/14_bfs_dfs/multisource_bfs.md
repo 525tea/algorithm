@@ -40,14 +40,16 @@
 **전체가 하나의 “공통의 타임라인”에서 진행된다** 
 
 
-![Frame5](../assets/Frame5.png)
-![Frame6](../assets/Frame6.png)
-![Frame7](../assets/Frame7.png)
-![Frame8](../assets/Frame8.png)
-
 *Frame 5–8: Wave-based BFS(days) — 전역 타임라인 상의 레벨 증가 예시*  
+![Frame5](../../assets/Frame5.png)
+![Frame6](../../assets/Frame6.png)
+![Frame7](../../assets/Frame7.png)
 
-요약
+레벨의 변화 <br>
+<img src="../../assets/Frame8.png" width="300"/>
+
+
+**로직**
 1. 준비 단계
    - lv 0: 초기 상태의 시작점 여러개를 모두 삽입
    - days = -1로 초기화
@@ -180,7 +182,7 @@ days++; // 레벨 증가
 큐의 노드 하나씩을 탐색, 전파하며 스트림별로 진행, 중지, 종료되며 진행하는 방식이다 <br>
 각 노드는 방문 시점에 거리(또는 시간)을 기록해 자신의 “전파된 거리(dist)”를 독립적으로 관리한다 <br>
 즉, 각 노드는 자체적인 레벨(거리)을 가지며 런타임 상에서 스트림별 BFS 파동이 겹치는 형태이다 <br>
-dist 방식은 BFS의 구현 패턴으로, "시작점이 여러개"라는 조건(멀티 소스 BFS)에서도 하나의 구현 방법으로 사용하는 것이다
+dist 방식은 BFS의 구현 패턴으로, "시작점이 여러개"라는 조건(멀티 소스 BFS)에서도 하나의 구현 방법으로 사용하는 것이다 <br>
 👉 단일 출발/멀티소스 + 최단거리형 → dist
 
 - 각 노드의 도달 거리를 기록 (dist[nx][ny] = dixt[x][y] + 1)하며, 이는 **최단거리**이다
@@ -188,9 +190,9 @@ dist 방식은 BFS의 구현 패턴으로, "시작점이 여러개"라는 조건
 
 <br>
 
-![Frame9](../assets/Frame9.png)
-![Frame10](../assets/Frame10.png)
 *Frame 9–11: Distance-based BFS(dist) — 각 노드별 독립적인 거리 전파 흐름*
+![Frame9](../../assets/Frame9.png)
+![Frame10](../../assets/Frame10.png)
 
  <br>
 
@@ -212,7 +214,7 @@ dist는 “개별 칸의 익은 날짜” → 마지막 익은 칸의 값이 day
  <br>
 
 ### 웨이브 기반 BFS vs 거리 기반 BFS의 큐 상태 비교
-![Frame11](../assets/Frame11.png)
+![Frame11](../../assets/Frame11.png)
 
 
 <br>
