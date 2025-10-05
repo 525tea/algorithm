@@ -1,7 +1,7 @@
 # BFS (Breadth-First Search)
 
 
-### [📁 BFS 문제 리스트](/topics/14_bfs_dfs.md)
+### [📁 BFS 문제 리스트](/topics/14_bfs_dfs/14_bfs_dfs.md)
 
 >BFS는 큐(Queue)를 이용해 가까운 정점부터 차례로 탐색하는 알고리즘이다. <br>
 특히 최단거리 보장이라는 강력한 특성이 있어, 많은 문제에서 활용된다.<br>
@@ -14,7 +14,7 @@
 
 ### 1. int[] 사용
 
-````
+````java
 int[][] board = new int[502][502];
 boolean[][] vis = new boolean[502][502];
 int[] dx = {1, 0, -1, 0};
@@ -40,7 +40,7 @@ while (!q.isEmpty()) {
 
 ### 2. Pair 클래스 사용
 
-````
+````java
 class Pair {
     int x, y;
     Pair(int x, int y) { this.x = x; this.y = y; }
@@ -75,7 +75,7 @@ while (!q.isEmpty()) {
 ### 1. 방문 체크 (visited)
 - 무한 루프 방지, 중복 방지
 
-````
+````java
 if (visited[nx][ny]) continue;
 visited[nx][ny] = true;
 ````
@@ -83,14 +83,14 @@ visited[nx][ny] = true;
 
 ### 2. 최단거리 누적 (dist 배열)
 - “최소 이동 횟수”, “며칠 걸림” 문제에 필요
-````
+````java
 dist[nx][ny] = dist[x][y] + 1;
 ````
 <br>
 
 ### 3. 레벨 단위 처리 (날짜/시간)
 - 하루/시간 단위 전파 문제에 필요
-````
+````java
 int days = -1;
 while (!q.isEmpty()) {
     int size = q.size();
@@ -105,12 +105,11 @@ while (!q.isEmpty()) {
 
 ### 4. 방향 벡터 (dx, dy)
 - 반복문으로 간결하게
-````
+````java
 int[] dx = {1, -1, 0, 0};
 int[] dy = {0, 0, 1, -1};
 ````
 <br>
-
 
 ## BFS 유형
 
@@ -131,6 +130,7 @@ int[] dy = {0, 0, 1, -1};
 
 ### 2. 최단거리, 거리 측정
 - 유형 : 시작점에서 목표까지 최단거리 구하기, 레벨 단위로 진행
+- 💡 각 시작점별로 시작점에서부터 퍼져나가며 각 위치에 최단거리가 저장되는 프로세스
 - 💡 BFS는 레벨 순서 → 첫 방문이 무조건 최단거리
 - 패턴 : dist 배열에 최단거리 저장, dist[nx][ny] = dist[x][y] + 1
 - 풀이 방법
@@ -146,6 +146,7 @@ int[] dy = {0, 0, 1, -1};
 
 
 ### 3. 멀티 소스 BFS(여러 시작점)
+[✏️ 멀티 소스 BFS 개념](/topics/14_bfs_dfs/multisource_bfs.md)
 - 유형 : 여러 시작점에서 동시에 전파/확산 시작
 - 💡 큐를 초기화할 때 모든 시작점을 넣기 → 동시성 보장, 한 번에 BFS 돌리기
 - 패턴 : dist 또는 days 배열에 최단거리 저장
@@ -166,7 +167,7 @@ int[] dy = {0, 0, 1, -1};
     1.	위협 BFS 먼저 돌리기 → fireDist 배열에 불이 도착하는 시간을 기록
     2.	그 다음 대상 BFS 실행
     3.	이동할 때 조건 체크:
-    ````
+    ````java
     if (fireDist[nx][ny] <= dist[x][y] + 1) continue;
     ````
 - 대표 문제:
@@ -174,6 +175,84 @@ int[] dy = {0, 0, 1, -1};
   -  탈출 (3055) : 물 먼저, 고슴도치 후
   - 벽 부수고 이동하기 (2206, 14442, 16933) : 방문 배열에 상태(벽 부순 여부 + 좌표) 같이 저장
   - 숨바꼭질 3 (13549) : 순간이동(0초) vs 이동(1초) → 0-1 BFS
+
+<br>
+
+## 방문 여부 관리 방식
+
+### 1. visited 배열에 방문 여부 저장
+````java
+boolean[][] visited = new boolean[N][M];
+
+if (!visited[nx][ny]) {
+    visited[nx][ny] = true;
+    dist[nx][ny] = dist[x][y] + 1;
+    q.offer(new int[]{nx, ny});
+}
+````
+- 장점
+  - visited와 dist의 역할이 분리 → 가독성 ↑
+  - flood fill 같은 단순 영역 탐색 문제에서도 그대로 재사용 가능 (일관성)
+- 단점
+  - 메모리 2배 차지 (dist + visited)
+- 추천 상황
+  - Flood Fill + 거리 측정이 섞여 있는 문제
+  - “방문 여부” 자체를 물어보는 문제 (ex. 안전 영역, 영역 개수)
+
+
+### 2. dist 배열만 사용, -1로 방문 체크
+
+````java
+int[][] dist = new int[N][M];
+for (int[] row : dist) Arrays.fill(row, -1);
+
+dist[sx][sy] = 0;
+while (!q.isEmpty()) {
+    int[] cur = q.poll();
+    for (int d=0; d<4; d++) {
+        int nx = cur[0]+dx[d], ny = cur[1]+dy[d];
+        if (nx<0||ny<0||nx>=N||ny>=M) continue;
+        if (dist[nx][ny] != -1) continue;  // 이미 방문
+        dist[nx][ny] = dist[cur[0]][cur[1]] + 1;
+        q.offer(new int[]{nx, ny});
+    }
+}
+````
+- 장점
+  - 방문 여부와 거리 정보를 한 번에 관리 가능 → 코드 간결
+  - 무가중치 최단거리 BFS에서는 dist = 방문 배열 대체 가능
+- 단점
+  - flood fill처럼 “거리 계산이 필요 없는 탐색”에는 적합하지 않음
+  - 방문 체크 의도가 살짝 덜 명확 ("dis t== -1 == 미방문" 이라는 걸 알아야 함)
+- 추천 상황
+  최단거리 구하는 문제
+
+### 3. 플래그(escaped, found)만 쓰는 경우
+
+````java
+boolean found = false;
+while (!q.isEmpty()) {
+    int cur = q.poll();
+    if (cur == target) { found = true; break; }
+}
+System.out.println(found ? dist[target] : "불가능");
+````
+- 장점
+  - 종료 여부를 직관적으로 표시 가능
+  - 출력 분기(성공/실패)가 코드에서 명확하게 드러남
+- 단점
+  - 여전히 방문 여부는 배열(dist/visited)로 체크해야 함 → 플래그만으로는 중복 방문 못 막음
+  - BFS의 핵심은 “큐에 중복 삽입 방지”인데, 플래그는 최종 결과 제어용이지 방문 제어용이 아님
+- 추천 상황:
+  - “탈출/도착 여부”를 출력해야 하는 문제 ex. 6593(상범 빌딩), 5014(스타트링크)
+  - BFS 본체는 dist/visited로 돌리고, 출력 분기만 플래그로 처리
+
+
+
+### 정리
+- Flood Fill → visited[] 별도 저장
+- 거리 측정 BFS → dist == -1
+- 탈출/성공 여부 문제 → BFS 조건은 dist == -1 로 체크 + 출력은 플래그(또는 return -1)
 
 <br>
 
@@ -187,6 +266,7 @@ int[] dy = {0, 0, 1, -1};
 | 멀티소스 BFS  | 동시에 전파     | 멀티 큐 시작, dist   | 시작점 여러개를 큐에 한꺼번에 삽입, BFS를 한번에 돌리기 |
 | 경쟁 BFS(선행+후행) | 위협 vs 대상   | fireDist + dist | 위협 BFS(선행) → 대상 BFS(후행) 순서대로
 
+<br>
 
 ## 유형별 문제 분류
 ### **Flood Fill (영역 탐색, 연결 요소)**
