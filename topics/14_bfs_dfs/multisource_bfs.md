@@ -39,14 +39,14 @@
 
 **전체가 하나의 “공통의 타임라인”에서 진행된다** 
 
-
-*Frame 5–8: Wave-based BFS(days) — 전역 타임라인 상의 레벨 증가 예시*  
-![Frame5](../../assets/Frame5.png)
-![Frame6](../../assets/Frame6.png)
-![Frame7](../../assets/Frame7.png)
+<br>
+*Frame 5–8: Wave-based BFS(days) — 전역 타임라인 상의 레벨 증가 예시*
+<img src="../../assets/Frame5.png" width="900"/>
+<img src="../../assets/Frame6.png" width="900"/>
+<img src="../../assets/Frame7.png" width="900"/>
 
 레벨의 변화 <br>
-<img src="../../assets/Frame8.png" width="300"/>
+<img src="../../assets/Frame8.png" width="600"/>
 
 
 **로직**
@@ -190,9 +190,9 @@ dist 방식은 BFS의 구현 패턴으로, "시작점이 여러개"라는 조건
 
 <br>
 
-*Frame 9–11: Distance-based BFS(dist) — 각 노드별 독립적인 거리 전파 흐름*
-![Frame9](../../assets/Frame9.png)
-![Frame10](../../assets/Frame10.png)
+*Frame 9–10: Distance-based BFS(dist) — 각 노드별 독립적인 거리 전파 흐름*
+<img src="../../assets/Frame9.png" width="900"/>
+<img src="../../assets/Frame10.png" width="900"/>
 
  <br>
 
@@ -214,10 +214,7 @@ dist는 “개별 칸의 익은 날짜” → 마지막 익은 칸의 값이 day
  <br>
 
 ### 웨이브 기반 BFS vs 거리 기반 BFS의 큐 상태 비교
-![Frame11](../../assets/Frame11.png)
-
-
-<br>
+<img src="../../assets/Frame11.png" width="900"/>
 
 ## 4. 요약
 - 시작점이 여러 개일 때 큐에 동시에 넣는 것이 중요하다.
@@ -231,3 +228,15 @@ dist는 “개별 칸의 익은 날짜” → 마지막 익은 칸의 값이 day
 멀티소스 BFS란 <br>
 시작점 여러 개를 동시에 & 모두 큐에 넣고, <br>
 BFS를 레벨 단위로 돌려서 “동시에 확산/전파되는 효과”를 구현하는 알고리즘 <br>
+
+<br>
+
+## 문제 모음
+### **멀티 소스 BFS (여러 시작점 동시)**
+- [토마토 (7576, 골드5)](https://www.acmicpc.net/problem/7576)
+- [토마토 3D (7569, 골드5)](https://www.acmicpc.net/problem/7569)
+
+### **멀티 소스 + 경쟁 BFS**
+- [불 (5427, 골드5)](https://www.acmicpc.net/problem/5427)
+- [불! (4179, 골드3)](https://www.acmicpc.net/problem/4179)
+- [탈출 (3055, 골드4)](https://www.acmicpc.net/problem/3055)

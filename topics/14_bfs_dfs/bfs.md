@@ -160,21 +160,71 @@ int[] dy = {0, 0, 1, -1};
   - 불 (5427): 불이 퍼지는 시뮬레이션
 
 
-### 4. 경쟁/제한 BFS (선행 BFS + 후행 BFS)
+### 4. 경쟁 BFS (선행 BFS + 후행 BFS)
 - 유형 : 위협과 대상이 다른 규칙으로 움직이는 경우, 조건부 이동, 선행 제약이 있는 경우
-- 💡 위협 BFS를 먼저 돌려서 “위협의 도달 시점(최단거리)“을 계산 → 대상 BFS 조건으로 사용
+- 서로 다른 존재가 같은 공간을 두고 경쟁적으로 이동함
+- 보통 하나는 “위협” (불, 물 등), 다른 하나는 “플레이어” (사람, 동물 등)
+- 💡 BFS를 두 번 돌려서 “위협의 도달 시점(최단거리)“을 계산하고 → 대상 BFS 조건으로 사용
+<br> → 선행 BFS(위협) + 후행 BFS(플레이어)
 - 풀이 방법
-    1.	위협 BFS 먼저 돌리기 → fireDist 배열에 불이 도착하는 시간을 기록
-    2.	그 다음 대상 BFS 실행
-    3.	이동할 때 조건 체크:
-    ````java
-    if (fireDist[nx][ny] <= dist[x][y] + 1) continue;
-    ````
+    1.	위협 BFS 먼저 돌리기 → 위협 배열에 각 칸의 도착 시간을 기록
+    2.	그 다음 위협 BFS를 조건으로 체크하며 대상 BFS 실행
+       <br> - 이동할 때 조건 체크:
+           ````java
+           if (fireDist[nx][ny] <= dist[x][y] + 1) continue;
+           ````
+    3. 탈출 조건 만족 시 종료 (테두리 or 목표 지점 등)
+
 - 대표 문제:
   - 불! (4179) : 불 먼저, 지훈 후
-  -  탈출 (3055) : 물 먼저, 고슴도치 후
+  - 탈출 (3055) : 물 먼저, 고슴도치 후
   - 벽 부수고 이동하기 (2206, 14442, 16933) : 방문 배열에 상태(벽 부순 여부 + 좌표) 같이 저장
   - 숨바꼭질 3 (13549) : 순간이동(0초) vs 이동(1초) → 0-1 BFS
+
+<br>
+
+### 5. 상태/제한 BFS
+[✏️ 상태/제한 BFS 개념](/topics/14_bfs_dfs/state_bfs.md)
+- 하나의 주체가 상태를 가지며 이동 규칙이 달라지는 경우
+- 즉, 방문 여부가 단순 좌표가 아니라 (좌표 + 상태)로 정의됨
+- 유형
+
+| 문제                | 상태의 의미         | 방문 체크 방식               |
+|-------------------|----------------|------------------------|
+| 벽 부수고 이동하기(2206)  | 벽을 몇 번 부쉈는가    | visited[x][y][broken]  |
+| 말이 되고픈 원숭이 (1600) | 남은 말 점프 횟수     | visited[x][y][k]       |
+| 숨바꼭질 3 (13549)    | 0초 이동 or 1초 이동 | 0-1 BFS (Deque 사용)     |
+| 열쇠 (9328)         | 열쇠 비트 상태       | visited[x][y][bitmask] |
+
+- 예시
+```java
+// 3차원 visited or dist
+boolean[][][] visited = new boolean[N][M][2];
+
+while (!q.isEmpty()) {
+    Node cur = q.poll();
+    for (int dir = 0; dir < 4; dir++) {
+        int nx = cur.x + dx[dir];
+        int ny = cur.y + dy[dir];
+
+        // 벽을 부쉈는지 여부에 따라 조건 달라짐
+        if (board[nx][ny] == 1 && cur.broken == 0 && !visited[nx][ny][1]) {
+            visited[nx][ny][1] = true;
+            q.offer(new Node(nx, ny, 1));
+        }
+    }
+}
+```
+<br>
+
+**주요 패턴**
+- 자료구조 -> visited/dist
+- 상태 표현 -> Node(x, y, state) 클래스
+
+<br>
+
+## 6. 그외 가중치 변형형 BFS
+0-1 BFS, 다익스트라, 벨만 포드, 플로이드 워셜 등
 
 <br>
 
@@ -270,7 +320,6 @@ System.out.println(found ? dist[target] : "불가능");
 
 ## 유형별 문제 분류
 ### **Flood Fill (영역 탐색, 연결 요소)**
-
 - [그림 (1926, 실버1)](https://www.acmicpc.net/problem/1926)
 - [유기농 배추 (1012, 실버2)](https://www.acmicpc.net/problem/1012)
 - [적록색약 (10026, 골드5)](https://www.acmicpc.net/problem/10026)
@@ -281,24 +330,22 @@ System.out.println(found ? dist[target] : "불가능");
 
 
 ### **거리 측정 (1차원/2차원 최단거리)**
-
 - [미로 탐색 (2178, 실버1)](https://www.acmicpc.net/problem/2178)
 - [숨바꼭질 (1697, 실버1)](https://www.acmicpc.net/problem/1697)
 - [나이트의 이동 (7562, 실버1)](https://www.acmicpc.net/problem/7562)
 - [스타트링크 (5014, 실버1)](https://www.acmicpc.net/problem/5014)
 - [상범 빌딩 (6593, 골드5)](https://www.acmicpc.net/problem/6593)
 
-
 ### **멀티 소스 BFS (여러 시작점 동시)**
-
 - [토마토 (7576, 골드5)](https://www.acmicpc.net/problem/7576)
 - [토마토 3D (7569, 골드5)](https://www.acmicpc.net/problem/7569)
+
+### **경쟁 BFS**
 - [불 (5427, 골드5)](https://www.acmicpc.net/problem/5427)
 - [불! (4179, 골드3)](https://www.acmicpc.net/problem/4179)
+- [탈출 (3055, 골드4)](https://www.acmicpc.net/problem/3055)
 
-
-### **경쟁/제한 BFS (조건부 이동, 제약 포함)**
-
+### **상태/제한 BFS**
 - [벽 부수고 이동하기 (2206, 골드3)](https://www.acmicpc.net/problem/2206)
 - [벽 부수고 이동하기 2 (14442, 골드3)](https://www.acmicpc.net/problem/14442)
 - [벽 부수고 이동하기 3 (16933, 골드1)](https://www.acmicpc.net/problem/16933)
