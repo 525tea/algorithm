@@ -6,7 +6,6 @@
 
 ### [📁 BFS 문제 리스트](/topics/14_bfs_dfs/14_bfs_dfs.md)
 
-
 # 상태/제한 BFS (State-based BFS)
 
 상태(조건)가 추가되어 탐색 차원이 확장되는 BFS

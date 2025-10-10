@@ -1,5 +1,3 @@
-# BFS (Breadth-First Search)
-
 ### ✏️ BFS 개념
 - [멀티 소스 BFS 개념](/topics/14_bfs_dfs/multisource_bfs.md)
 - [상태 전이 BFS 개념](/topics/14_bfs_dfs/state_bfs.md)
@@ -7,7 +5,8 @@
 - [0-1 BFS, 다익스트라 + 백준 #13549 해설](/topics/14_bfs_dfs/0-1_bfs.md)
 ### [📁 BFS 문제 리스트](/topics/14_bfs_dfs/14_bfs_dfs.md)
 
-<br>
+# BFS (Breadth-First Search)
+
 
 >BFS는 큐(Queue)를 이용해 가까운 정점부터 차례로 탐색하는 알고리즘이다. <br>
 특히 최단거리 보장이라는 강력한 특성이 있어, 많은 문제에서 활용된다.<br>

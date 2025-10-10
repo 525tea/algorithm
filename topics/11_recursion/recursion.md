@@ -1,7 +1,6 @@
+### [📁 재귀 문제 리스트](/topics/11_recursion/11_recursion.md)
 
 # 재귀(recursion)
-
-### [📁 재귀 문제 리스트](/topics/11_recursion/11_recursion.md)
 
 ## 재귀란?
 함수 func이 자기 안에서 함수 func을 호출, 그 func이 또 안에서 func을 호출…하는 것으로

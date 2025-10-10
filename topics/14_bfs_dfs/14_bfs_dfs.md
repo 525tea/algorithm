@@ -1,5 +1,3 @@
-# 14. BFS/DFS
-
 ### [✏️ BFS 개념](/topics/14_bfs_dfs/bfs.md)
 - [멀티 소스 BFS 개념](/topics/14_bfs_dfs/multisource_bfs.md)
 - [상태 전이 BFS 개념](/topics/14_bfs_dfs/state_bfs.md)
@@ -7,6 +5,8 @@
 - [0-1 BFS, 다익스트라 + 백준 #13549 해설](/topics/14_bfs_dfs/0-1_bfs.md)
 
 ### [✏️ DFS 개념](/topics/14_bfs_dfs/dfs.md)
+
+# 14. BFS/DFS
 
 ## 백준
 | 번호 | 분류  | 제목                                                    | 문제 번호 | 난이도    | 풀이                                                                                                                    | 코멘트                                    | 플래그 |
