@@ -23,9 +23,9 @@ public class S1182V2 {
         System.out.println(count);
     }
 
-    static void func(int cur, int tot) {
+    static void func(int cur, int tot) { // cur = 현재 depth, tot = 누적합
         // base condition
-        if (cur == N) {
+        if (cur == N) { // 최대 깊이 도달
             if (tot == S) count++;
             return;
         }
