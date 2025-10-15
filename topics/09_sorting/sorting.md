@@ -186,13 +186,143 @@ lo < hi일 동안 hi가 pivot보다 작은 값의 인덱스가 되고, lo가 piv
     - 평균 시간복잡도 `O(n log n)`, 최악 `O(n²)`
     - **빠르고 가벼움**, 대부분 문제에 적합
 
-### 객체 배열 - Integer[], Long[], Double[], Character[]
+### 객체 배열 - int[][], Integer[], Long[], Double[], Character[], Class[]
 
 - 사용: **`Arrays.sort(arr);`**
 - 내부 알고리즘: **TimSort**
 - 특징:
     - 안정 정렬 (같은 값의 순서 유지)
     - 병합 정렬 + 삽입 정렬 기반
+- 객체 배열은 객체가 **Comparable 인터페이스를 구현한 클래스**일 때만 기본 정렬이 가능하다.
+  - ex. String, Integer, Double 등은 이미 Comparable 구현 완료
+
+
+**`Arrays.sort(arr)` 기본 정렬**
+
+자바에서 객체에 Comparable 인터페이스를 구현해놨을을 경우 자동으로 정렬 가능하다
+
+```java
+String[] arr = {"banana", "apple", "cherry"};
+Arrays.sort(arr); // 알파벳순 정렬 (Comparable<String>에 정의된 기준)
+```
+
+<br>
+
+**사용자 정의 정렬: Comparator 사용**
+
+객체 배열이 Comparable을 구현하지 않았거나,
+
+정렬 기준을 커스터마이징하려면 Comparator를 명시적으로 전달해야 한다
+
+
+- 기본형 배열은 불가능. Collections.reverseOrder()는 객체 타입 전용 (ex. Integer[])
+    ```java
+    int[] arr = {3, 1, 2};
+    // Arrays.sort(arr, Collections.reverseOrder()); // ❌ Error
+    ```
+
+- 객체형 배열 (ex. Integer[])
+    ```java
+    Integer[] arr = {3, 1, 2};
+    
+    // 오름차순
+    Arrays.sort(arr); 
+    
+    // 내림차순
+    Arrays.sort(arr, Collections.reverseOrder());
+    
+    // 사용자 정의 Comparator
+    Arrays.sort(arr, (a, b) -> b - a); // 람다식으로도 가능
+    ```
+
+- 2차원 배열 (ex. int[][])
+  
+    int[][]은 내부적으로 int[] 객체의 배열이기 때문에
+  
+    Comparator<int[]> 를 명시해야 정렬 가능
+  - ⚠️ int[][]은 Comparable을 구현하지 않았기 때문에 Arrays.sort(arr); 단독으로 호출 시 컴파일 에러가 발생함
+    ```java
+    int[][] arr = {
+        {3, 2},
+        {1, 4},
+        {2, 1}
+    };
+    
+    // ① 첫 번째 원소 기준 오름차순
+    Arrays.sort(arr, (a, b) -> a[0] - b[0]);
+    
+    // ② 두 번째 원소 기준 오름차순
+    Arrays.sort(arr, (a, b) -> a[1] - b[1]);
+    
+    // ③ 첫 번째 원소 오름차순, 같으면 두 번째 원소 오름차순
+    Arrays.sort(arr, (a, b) -> {
+        if (a[0] == b[0]) return a[1] - b[1];
+        return a[0] - b[0];
+    });
+    ```
+
+- 사용자 정의 클래스 (ex. User[])
+
+    ```java
+    class User {
+        String name;
+        int age;
+    
+        User(String name, int age) {
+            this.name = name;
+            this.age = age;
+        }
+    
+        public String toString() {
+            return name + "(" + age + ")";
+        }
+    }
+    
+    User[] users = {
+        new User("Yejin", 25),
+        new User("Alex", 20),
+        new User("Bob", 30)
+    };
+    
+    // ① Comparator 사용 (나이 오름차순)
+    Arrays.sort(users, (a, b) -> a.age - b.age);
+    
+    // ② 이름 오름차순
+    Arrays.sort(users, (a, b) -> a.name.compareTo(b.name));
+    
+    // ③ 이름 오름차순 → 같으면 나이 내림차순
+    Arrays.sort(users, (a, b) -> {
+        if (a.name.equals(b.name)) return b.age - a.age;
+        return a.name.compareTo(b.name);
+    });
+    ```
+
+- `Comparator.comparing` 메서드 체이닝
+
+    ```java
+    Arrays.sort(users, Comparator.comparing((User u) -> u.name));
+    Arrays.sort(users, Comparator.comparingInt((User u) -> u.age).reversed());
+    
+    // 복합 정렬
+    Arrays.sort(users, Comparator
+            .comparing((User u) -> u.name)
+            .thenComparingInt(u -> u.age)
+    );
+    ```
+
+<br>
+
+### 💡 Comparable vs Comparator
+
+| 구분 | 설명 | 구현 위치 | 사용 예시 |
+|------|------|------------|------------|
+| **Comparable** | 객체 자체가 정렬 기준을 가짐 | 클래스 내부 (`implements Comparable<T>`) | `Arrays.sort(arr)` |
+| **Comparator** | 외부에서 정렬 기준을 지정 | sort 메서드의 인자 (`Arrays.sort(arr, comparator)`) | `Arrays.sort(arr, (a,b)->a.x-b.x)` |
+
+> 기본 정렬 기준이 클래스 내부에 이미 정의돼 있으면 `Comparable`,  
+> 실행 시점에 정렬 기준을 바꾸고 싶을 땐 `Comparator`를 사용한다.
+
+<br>
 
 ### 정리
 
@@ -230,9 +360,9 @@ Arrays.sort(nums, Collections.reverseOrder()); // 내림차순
 
 ### 요약
 
-| 메서드 | 대상                   | 내부 알고리즘 | 평균     | 최악            | 안정성 | 특징                       |
-|--------|----------------------|--------------|--------|---------------|----|--------------------------|
-| **`Collections.sort(List)`** | List< T >            | TimSort | O(N) | O(NlogN) | ✅  | 안정적, Comparator 오버라이딩 가능 |
+| 메서드 | 대상                   | 내부 알고리즘 | 평균       | 최악            | 안정성 | 특징                       |
+|--------|----------------------|--------------|----------|---------------|----|--------------------------|
+| **`Collections.sort(List)`** | List< T >            | TimSort | O(NlogN) | O(NlogN) | ✅  | 안정적, Comparator 오버라이딩 가능 |
 
 
 
