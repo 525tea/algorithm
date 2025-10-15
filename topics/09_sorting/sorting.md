@@ -167,7 +167,7 @@ lo < hi일 동안 hi가 pivot보다 작은 값의 인덱스가 되고, lo가 piv
 
     직접 구현을 요하는 문제가 아니라면
     
-    알고리즘의 직접 구현보다 **내장 정렬 메서드**를 사용하는 경우가 대부분이다
+    알고리즘의 직접 구현보다 내장 정렬 메서드를 사용하는 경우가 대부분이다
     
     핵심은 자료형(기본형 / 객체형) 에 따라 내부 알고리즘이 다르다는 것
 
@@ -196,8 +196,9 @@ lo < hi일 동안 hi가 pivot보다 작은 값의 인덱스가 되고, lo가 piv
 - 객체 배열은 객체가 **Comparable 인터페이스를 구현한 클래스**일 때만 기본 정렬이 가능하다.
   - ex. String, Integer, Double 등은 이미 Comparable 구현 완료
 
+<br>
 
-**`Arrays.sort(arr)` 기본 정렬**
+**(1) `Arrays.sort(arr)` 기본 정렬**
 
 자바에서 객체에 Comparable 인터페이스를 구현해놨을을 경우 자동으로 정렬 가능하다
 
@@ -208,7 +209,7 @@ Arrays.sort(arr); // 알파벳순 정렬 (Comparable<String>에 정의된 기준
 
 <br>
 
-**사용자 정의 정렬: Comparator 사용**
+**(2) 사용자 정의 정렬: `Comparator` 사용**
 
 객체 배열이 Comparable을 구현하지 않았거나,
 
@@ -279,9 +280,9 @@ Arrays.sort(arr); // 알파벳순 정렬 (Comparable<String>에 정의된 기준
     }
     
     User[] users = {
-        new User("Yejin", 25),
-        new User("Alex", 20),
-        new User("Bob", 30)
+        new User("Amy", 25),
+        new User("Peter", 20),
+        new User("Paul", 30)
     };
     
     // ① Comparator 사용 (나이 오름차순)
@@ -309,18 +310,6 @@ Arrays.sort(arr); // 알파벳순 정렬 (Comparable<String>에 정의된 기준
             .thenComparingInt(u -> u.age)
     );
     ```
-
-<br>
-
-### 💡 Comparable vs Comparator
-
-| 구분 | 설명 | 구현 위치 | 사용 예시 |
-|------|------|------------|------------|
-| **Comparable** | 객체 자체가 정렬 기준을 가짐 | 클래스 내부 (`implements Comparable<T>`) | `Arrays.sort(arr)` |
-| **Comparator** | 외부에서 정렬 기준을 지정 | sort 메서드의 인자 (`Arrays.sort(arr, comparator)`) | `Arrays.sort(arr, (a,b)->a.x-b.x)` |
-
-> 기본 정렬 기준이 클래스 내부에 이미 정의돼 있으면 `Comparable`,  
-> 실행 시점에 정렬 기준을 바꾸고 싶을 땐 `Comparator`를 사용한다.
 
 <br>
 
@@ -406,3 +395,246 @@ Collections.sort(list, Comparator.reverseOrder()); // 내림차순
 | K번째 원소 찾기               | `QuickSelect`, `PriorityQueue`                            |
 | 빈도/등수 정렬                | `Map → List → sort by value`                              |
 
+<br>
+
+## 💡 Comparable vs Comparator
+
+Comparable은 객체 자신이 “기본 정렬 기준(자연 순서)”을 갖도록 하는 인터페이스이고, (정렬의 기본값)
+
+Comparator는 외부에서 “비교 기준(임시 정렬 방식)”을 주입하는 인터페이스이다 (정렬의 옵션값)
+
+
+    Comparable ⟶ compareTo(T other)
+    │
+    │   (내부 기준)
+    │
+    └── Student.compareTo(Student o) {
+    return Integer.compare(this.score, o.score);
+    }
+    
+    Comparator ⟶ compare(T a, T b)
+    │
+    │   (외부 기준)
+    │
+    └── Comparator<Student> byScore = (a,b) -> Integer.compare(a.score, b.score);
+
+
+| 비교 방식                   | 인터페이스                    | 설명                                                          | 구현 위치                                                            | 사용 상황              | 메서드               | 예시                                  |
+|-------------------------|--------------------------|-------------------------------------------------------------|------------------------------------------------------------------|--------------------|-------------------|-------------------------------------|
+| **Comparable**          | java.lang.Comparable<T>  | 객체 자체가 정렬 기준을 가짐                                            | 클래스 내부 (`implements Comparable<T>`)                              | 기본 정렬이 필요          | `compareTo(T o)`    | `Arrays.sort(arr)`                  |
+| **Comparator**          | java.util.Comparator<T>  | 외부에서 정렬 기준을 지정                                              | 외부, sort 메서드의 인자(익명 클래스 or 람다)  (`Arrays.sort(arr, comparator)`) | 상황별/복합적인 정렬 기준이 필요 | `compare(T a, T b)` |  `Arrays.sort(arr, (a,b)->a.x-b.x)` |
+| `Integer.compare(a, b)` | java.lang.Integer        | 인터페이스❌❌ 정적 메서드(static)로, 두 정수값을 단순 비교하는 헬퍼 메서드(기본 비교 유틸 함수) |                                                                  | |
+
+> 기본 정렬 기준이 클래스 내부에 이미 정의돼 있으면 `Comparable`,  
+> 실행 시점마다 정렬 기준을 바꾸고 싶을 땐 `Comparator`를 사용한다.
+
+`Integer.compare(a, b)`는 Comparable, Comparator 인터페이스와는 무관하며, 
+
+compareTo() 내부에서 자주 쓰이는 단순히 두 숫자를 비교해주는 함수로 기본형의 비교 메서드이다 (내가 헷갈려서 넣음)
+
+
+```java
+// java.lang.Integer 내부
+public static int compare(int x, int y) {
+    return (x < y) ? -1 : ((x == y) ? 0 : 1);
+}
+```
+
+<br>
+
+### Comparable
+
+> 클래스 내부의 “자연 순서”
+
+**1. 특징**
+- 메서드는 `int compareTo(T other)` 하나
+- `compareTo(T other)`를 오버라이딩해서 Comparable을 구현(implement)한다
+- 자신 < other → 음수, 자신 = other → 0, 자신 > other → 양수를 반환
+- 클래스가 내부적으로 Comparable<T>를 구현하고 있다면 기본으로 구현된 기준이 내장되어 있는 것으로, 그냥 그대로 쓸 수 있다
+- 다른 정렬 기준을 원하면 오버라이딩해서 사용할 수 있다
+- 한 클래스에 하나의 기준(자연 순서)만 가질 수 있다
+- 보통 기본 정렬(오름차순 등)을 여기에 넣는다
+
+
+**2. 핵심 규약**
+
+- 반대칭성: a.compareTo(b)의 부호는 -b.compareTo(a)와 같아야 함
+- 추이성: a>b이고 b>c면 a>c
+- 일관성: 비교 결과가 변하지 않는 한 같은 입력엔 같은 결과
+- equals와의 일관성 권장: compareTo()==0이면 equals()도 true가 되게 만드는 것이 좋음(권장)
+  - BigDecimal의 경우 compareTo() 값이 0이지만 equals()의 결과는 false
+
+- 위 규약들을 모두 지키며 만들어야 하기 때문에 인텔리제이 단축키를 유용하게 활용하는 것이 좋다..
+
+
+**3. 메서드**
+
+`compareTo()`
+
+- Comparable 인터페이스 소속으로, Comparable 인터페이스의 유일한 메서드이며
+
+  원소 자신과 비교 원소를 비교하는 메서드이다
+
+- 클래스가 “implements Comparable”로 구현하면,
+
+  클래스 안에서 그 클래스의 기본(자연) 정렬 기준이 설정된다
+
+
+```java
+int compareTo(T other) // 시그니처
+a.compareTo(b) // 호출 
+```
+
+
+사용 예시 1
+```java
+public class User implements Comparable<User> {
+    String name;
+    int age;
+
+    @Override
+    public int compareTo(User other) {
+        return this.age - other.age; // 나이 오름차순
+    }
+}
+```
+
+```java
+User[] users = { new User("A", 25), new User("B", 20) };
+Arrays.sort(users); // 내부 compareTo() 기준으로 정렬됨
+```
+
+<br>
+
+사용 예시 2
+```java
+public class User implements Comparable<User> {
+    String name;
+    int age;
+    public User(String name, int age) { this.name = name; this.age = age; }
+
+    @Override
+    public int compareTo(User o) {
+        // 나이 오름차순 → 같으면 이름 사전순
+        int c1 = Integer.compare(this.age, o.age); // 뺄셈보다 이 방법을 권장(오버플로 방지)
+        if (c1 != 0) return c1;
+        return this.name.compareTo(o.name);
+    }
+}
+```
+
+
+### Comparator
+
+상황에 따라 그때그때 기준을 정해서 정렬에 사용하기 위래 만들어 쓰는 정렬 방식의 주입용 객체의 인터페이스이다
+
+즉, 정렬 기준을 외부에서 따로 주입하는 방식이다
+
+Arrays.sort(arr, comparator)의 내부적인 동작은 comparator에 구현해 놓은
+
+comparator.compare(a, b)의 반환값에 따라 정렬 순서를 결정하도록 동작한다
+
+- 두 객체(o1, o2)를 비교하는 정렬 기준을 주는 방법
+- Comparator를 사용하면 즉석에서 기준을 줄 수 있다
+- 클래스 외부에서 따로 정의 가능
+- 하나의 클래스에 여러 기준을 주입할 수 있다
+  - 여러 개의 기준을 만들 수 있음
+  - 정렬 시점마다 기준을 주입할 수 있음
+- Comparator는 **람다식이나 익명 클래스**로 즉시 구현 가능하며,
+  <br> 이는 compare() 메서드를 오버라이딩한 것과 동일한 효과를 가진다
+
+**메서드**
+
+- `int compare(T a, T b)`
+- 자바 8+에서 유틸 메서드가 아주 많다
+  - Comparator.comparing(...), comparingInt/Long/Double
+  - thenComparing(...), reversed()
+  - naturalOrder(), reverseOrder()
+  - nullsFirst(...), nullsLast(...)
+
+**메서드 체이닝** 
+- Comparator.comparing()은 “객체형 기준”
+- comparingInt/Long/Double()은 “기본형 기준”
+- 
+```java
+Comparator<User> byNameThenAge =
+    Comparator.comparing((User u) -> u.name)
+              .thenComparingInt(u -> u.age);
+
+// 내림차순은 reversed()
+Comparator<User> byAgeDesc =
+    Comparator.comparingInt((User u) -> u.age).reversed();
+```
+
+<br>
+
+문자열/숫자/널 혼합 예시
+```java
+// 문자열 길이 → 같은 길이면 사전순
+Comparator<String> byLenThenLex =
+    Comparator.comparingInt(String::length)
+              .thenComparing(Comparator.naturalOrder());
+
+// null 안전: null 먼저
+Comparator<String> nullSafe =
+    Comparator.nullsFirst(Comparator.naturalOrder());
+```
+
+```java
+Arrays.sort(users, (u1, u2) -> u1.name.compareTo(u2.name)); // 이름 기준
+Arrays.sort(users, (u1, u2) -> u2.age - u1.age); // 나이 내림차순
+```
+
+<br>
+
+### 정렬 시 반환값의 의미 (Comparable/Comparator 공통)
+
+| 반환값 | 의미 | 결과 |
+|---|---|---|
+| 음수(< 0) | a가 b보다 작다 | a가 앞에 온다 |
+| 0 | a와 b가 같다 | 순서 그대로 유지 (안정 정렬이면 순서 보존) |
+| 양수(> 0)    | a가 b보다 크다   | b가 앞에 온다   |
+
+<br>
+
+### Arrays.sort() / Collections.sort() 에 적용 ✅
+
+| 메서드                                          | 비교 기준 | 설명 |
+|----------------------------------------------|---|---|
+| Arrays.sort(기본형) int[], double[] 등 | Comparable, Comparator 적용 불가 | 그냥 오름차순(기본 정렬)만 가능 |
+| Arrays.sort(객체형) arr = 객체형                   | Comparable | 배열 요소가 Comparable 구현 시 내부 compareTo() 사용 |
+| Arrays.sort(객체형, comparator) arr = 객체형       | Comparator | 전달된 compare() 기준으로 정렬 |
+| Collections.sort(list)                       | Comparable | List 요소가 Comparable 구현 시 사용 |
+| Collections.sort(list, comparator)           | Comparator | 전달된 compare() 기준으로 정렬 |
+
+🚨 기본형 배열(int[], double[])은 Comparator 불가, 오름차순 정렬로 정렬 기준이 고정
+
+-> 정렬 기준을 커스터마이징하고 싶다면 래퍼 클래스를 사용 
+
+
+**예시**
+
+
+```java
+// 1. 기본형 배열
+int[] arr = {5, 2, 3};
+Arrays.sort(arr); // ✅ (오름차순 고정)
+Arrays.sort(arr, Collections.reverseOrder()); // ❌ 에러 — 기본형엔 Comparator 적용 불가
+
+// 2. 객체 배열
+Integer[] nums = {5, 2, 3};
+Arrays.sort(nums); // ✅ Comparable<Integer>의 compareTo() 사용
+Arrays.sort(nums, (a,b) -> b - a); // ✅ Comparator 사용 (람다식 compare 오버라이딩)
+
+// 3. 사용자 정의 클래스
+User[] users = {...};
+Arrays.sort(users); // ✅ User가 Comparable 구현했을 때만 가능
+Arrays.sort(users, (a,b)->a.name.compareTo(b.name)); // ✅ Comparator 주입 가능
+
+// 4. 리스트
+List<User> list = new ArrayList<>(List.of(users));
+Collections.sort(list); // ✅ Comparable 구현 시
+Collections.sort(list, Comparator.comparing(u->u.age)); // ✅ Comparator 주입 시
+```
+
+<br>

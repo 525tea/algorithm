@@ -1,28 +1,28 @@
 # 09. 정렬
 
 ## 백준
-| 번호 | 분류 | 제목                                                    | 문제 번호 | 난이도 | 풀이                              | 코멘트 | 플래그 |
-|----|----|-------------------------------------------------------|-------|-----|---------------------------------|--|--|
-| 1  | 기본 | [수 정렬하기](https://www.acmicpc.net/problem/2750)        | 2750  |  브론즈 2   | [풀이](/solutions/09/B2750.java)  |  |  |
-| 2  | 기본 | [대표값2](https://www.acmicpc.net/problem/2587)          | 2587  |  브론즈 2   | [풀이](/solutions/09/B2758.java)  |  |  |
-| 3  | 기본 | [커트라인](https://www.acmicpc.net/problem/25305)         | 25305 |  브론즈 2   | [풀이](/solutions/09/B25305.java) |  |  |
-| 4  | 기본 | [수 정렬하기 2](https://www.acmicpc.net/problem/2751)      | 2751  |  실버 5   | [풀이](/solutions/09/S2751.java)  |  |  |
-| 5  | 기본 | [수 정렬하기 3](https://www.acmicpc.net/problem/10989)     | 10989 |   브론즈 1  | [풀이](/solutions/09/B10989.java) |  |  |
-| 6  | 기본 | [수 정렬하기 4](https://www.acmicpc.net/problem/11931)     | 11931 |  실버 5   | [풀이](/solutions/09/S11931.java) |  |  |
-| 7  | 기본 | [수 정렬하기 5](https://www.acmicpc.net/problem/15688)     | 15688 |  실버 5   | [풀이](/solutions/09/S15688.java) |  |  |
-| 8  | 기본 | [소트인사이드](https://www.acmicpc.net/problem/1427)        | 1427  |  실버 5   | [풀이](/solutions/09/S1427.java)  |  |  |
-| 9  | 기본 | [좌표 정렬하기](https://www.acmicpc.net/problem/11650)      | 11650 |   실버 5  | [풀이](/solutions/09/S11650.java) |  |  |
-| 10 | 기본 | [좌표 정렬하기 2](https://www.acmicpc.net/problem/11651)    | 11651 |  실버 5   | [풀이](/solutions/09/S11651.java) |  |  |
-| 11 | 기본 | [나이순 정렬](https://www.acmicpc.net/problem/10814)       | 10814 |  실버 5   | [풀이](/solutions/09/S10814.java) |  | ✅ |
-| 12 | 기본 | [좌표 압축](https://www.acmicpc.net/problem/18870)        | 18870 |  실버 2   | [풀이](/solutions/09/S18870.java) |  | ✅ |
-| 13 | 연습 | [시리얼 번호](https://www.acmicpc.net/problem/1431)        | 1431  |  실버 3   | [풀이](/solutions/09/S1431.java)  |  |  |
-| 14 | 연습 | [카드](https://www.acmicpc.net/problem/11652)           | 11652 |  실버 4   | [풀이](/solutions/09/S11652.java) |  |  |
-| 15 | 기본✔ | [역원소 정렬](https://www.acmicpc.net/problem/5648)        | 5648  |  실버 5   | [풀이](/solutions/09/S5648.java)  |  |  |
-| 16 | 기본✔ | [단어 정렬](https://www.acmicpc.net/problem/1181)         | 1181  |  실버 5   | [풀이](/solutions/09/S1181.java)  |  | ✅ |
-| 17 | 기본✔ | [빈도 정렬](https://www.acmicpc.net/problem/2910)         | 2910  |  실버 3   | [풀이](/solutions/09/S2910.java)  |  |  |
-| 18 | 기본 | [접미사 배열](https://www.acmicpc.net/problem/11656)       | 11656 |  실버 4   | [풀이](/solutions/09/S11656.java) |  |  |
-| 19 | 기본 | [국영수](https://www.acmicpc.net/problem/10825)          | 10825 |  실버 4   | [풀이](/solutions/09/S10825.java) |  |  |
-| 20 | 응용✔ | [먹을 것인가 먹힐 것인가](https://www.acmicpc.net/problem/7795) | 7795  |  실버 3   | [풀이](/solutions/09/S7795.java)  |  |  |
+| 번호 | 분류 | 제목                                                    | 문제 번호 | 난이도 | 풀이                              | 코멘트                                     | 플래그 |
+|----|----|-------------------------------------------------------|-------|-----|---------------------------------|-----------------------------------------|--|
+| 1  | 기본 | [수 정렬하기](https://www.acmicpc.net/problem/2750)        | 2750  |  브론즈 2   | [풀이](/solutions/09/B2750.java)  |                                         |  |
+| 2  | 기본 | [대표값2](https://www.acmicpc.net/problem/2587)          | 2587  |  브론즈 2   | [풀이](/solutions/09/B2758.java)  |                                         |  |
+| 3  | 기본 | [커트라인](https://www.acmicpc.net/problem/25305)         | 25305 |  브론즈 2   | [풀이](/solutions/09/B25305.java) |                                         |  |
+| 4  | 기본 | [수 정렬하기 2](https://www.acmicpc.net/problem/2751)      | 2751  |  실버 5   | [풀이](/solutions/09/S2751.java)  |                                         |  |
+| 5  | 기본 | [수 정렬하기 3](https://www.acmicpc.net/problem/10989)     | 10989 |   브론즈 1  | [풀이](/solutions/09/B10989.java) |                                         |  |
+| 6  | 기본 | [수 정렬하기 4](https://www.acmicpc.net/problem/11931)     | 11931 |  실버 5   | [풀이](/solutions/09/S11931.java) |                                         |  |
+| 7  | 기본 | [수 정렬하기 5](https://www.acmicpc.net/problem/15688)     | 15688 |  실버 5   | [풀이](/solutions/09/S15688.java) |                                         |  |
+| 8  | 기본 | [소트인사이드](https://www.acmicpc.net/problem/1427)        | 1427  |  실버 5   | [풀이](/solutions/09/S1427.java)  |                                         |  |
+| 9  | 기본 | [좌표 정렬하기](https://www.acmicpc.net/problem/11650)      | 11650 |   실버 5  | [풀이](/solutions/09/S11650.java) |                                         |  |
+| 10 | 기본 | [좌표 정렬하기 2](https://www.acmicpc.net/problem/11651)    | 11651 |  실버 5   | [풀이](/solutions/09/S11651.java) |                                         |  |
+| 11 | 기본 | [나이순 정렬](https://www.acmicpc.net/problem/10814)       | 10814 |  실버 5   | [풀이](/solutions/09/S10814.java) |                                         | ✅ |
+| 12 | 기본 | [좌표 압축](https://www.acmicpc.net/problem/18870)        | 18870 |  실버 2   | [풀이](/solutions/09/S18870.java) |                                         | ✅ |
+| 13 | 연습 | [시리얼 번호](https://www.acmicpc.net/problem/1431)        | 1431  |  실버 3   | [풀이](/solutions/09/S1431.java)  |                                         | ✅ |
+| 14 | 연습 | [카드](https://www.acmicpc.net/problem/11652)           | 11652 |  실버 4   | [풀이](/solutions/09/S11652.java) |                                         | ✅ |
+| 15 | 기본✔ | [역원소 정렬](https://www.acmicpc.net/problem/5648)        | 5648  |  실버 5   | [풀이](/solutions/09/S5648.java)  | EOF, StringBuilder 메서드                  | ✅ |
+| 16 | 기본✔ | [단어 정렬](https://www.acmicpc.net/problem/1181)         | 1181  |  실버 5   | [풀이](/solutions/09/S1181.java)  | Set                                     | ✅ |
+| 17 | 기본✔ | [빈도 정렬](https://www.acmicpc.net/problem/2910)         | 2910  |  실버 3   | [풀이](/solutions/09/S2910.java)  | HashMap                                 | ✅ |
+| 18 | 기본 | [접미사 배열](https://www.acmicpc.net/problem/11656)       | 11656 |  실버 4   | [풀이](/solutions/09/S11656.java) | substring(begin), substring(begin, end) |  |
+| 19 | 기본 | [국영수](https://www.acmicpc.net/problem/10825)          | 10825 |  실버 4   | [풀이](/solutions/09/S10825.java) |                                         |  |
+| 20 | 응용✔ | [먹을 것인가 먹힐 것인가](https://www.acmicpc.net/problem/7795) | 7795  |  실버 3   |   | 이분 탐색                                   |  |
 
 <br><br>
 
