@@ -88,6 +88,7 @@
 
 ## 구현 
 
+```java
 public class CountingSort {
 public static void sort(int[] arr) {
 int max = findMax(arr);
@@ -118,6 +119,7 @@ int[] result = new int[arr.length];
         return max;
     }
 }
+```
 
 
 <br>

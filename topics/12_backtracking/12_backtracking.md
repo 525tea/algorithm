@@ -1,5 +1,5 @@
 ### [✏️ 백트래킹 개념](/topics/12_backtracking/backtracking.md)
-- [N-Queen 해설](/solutions/12/G9663.md)
+- [N-Queen 해설](/solutions/s12/G9663.md)
 - [next permutation](/topics/12_backtracking/next_permutation.md)
 
 

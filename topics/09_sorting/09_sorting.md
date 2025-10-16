@@ -1,3 +1,13 @@
+### [✏️ 정렬 이론](/topics/09_sorting/sorting.md)
+- [선택 정렬 Selection Sort](/topics/09_sorting/selection_sort.md)
+- [버블 정렬 Bubble Sort](/topics/09_sorting/bubble_sort.md)
+- [삽입 정렬 Insertion Sort](/topics/09_sorting/insertion_sort.md)
+- [퀵 정렬 Quick Sort](/topics/09_sorting/quick_sort.md)
+- [병합 정렬 Merge Sort](/topics/09_sorting/merge_sort.md)
+- [힙 정렬 Heap Sort](/topics/09_sorting/heap_sort.md)
+- [계수 정렬 Counting Sort](/topics/09_sorting/counting_sort.md)
+
+
 # 09. 정렬
 
 ## 백준
