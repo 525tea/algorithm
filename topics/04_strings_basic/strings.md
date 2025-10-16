@@ -3,11 +3,31 @@
 
 ## String 
 
+> 주요 메서드, 문자열과 다른 자료형 간의 변환
+
+
 ### 주요 메서드
 
 1. `.valueOf(num)`
 
 String 클래스, 숫자 num(long, int double 모두 가능)을 String으로 변환
+
+2. `.indexOf(String str)` `.indexOf(Char ch)`
+
+처음 등장하는 위치(int) 반환
+
+3. `.split(String regex)`
+
+문자열 분할, String[] 반환
+
+ex. "java".split("") → ["j", "a", "v", "a"]
+
+4. `trim()`
+
+앞뒤의 공백을 제거, String 반환
+
+ex. " java ".trim() → "java"
+
 
 ## StringBuilder
 
