@@ -226,7 +226,7 @@ public class S15649 {
 <br>
 
 ### 2. N-Queen
-[N-Queen 해설](/solutions/12/G9663.md)
+[N-Queen 해설](/solutions/s12/G9663.md)
 
 핵심만 말하자면
 

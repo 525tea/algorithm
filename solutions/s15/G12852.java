@@ -11,10 +11,10 @@ public class G12852 {
         int[] d = new int[n + 1];      // 최소 연산 횟수 저장
         int[] pre = new int[n + 1];    // 이전 값 저장 (경로 추적용)
 
-        d[1] = 0;
+        d[1] = 0; // 초기값 정의
 
         for (int i = 2; i <= n; i++) {
-            d[i] = d[i - 1] + 1;   // 1 빼기
+            d[i] = d[i - 1] + 1;   // 1 빼기 (디폴트)
             pre[i] = i - 1;
 
             if (i % 2 == 0 && d[i] > d[i / 2] + 1) {
