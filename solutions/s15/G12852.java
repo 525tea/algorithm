@@ -1,7 +1,6 @@
 package s15;
 
 import java.io.*;
-import java.util.*;
 
 public class G12852 {
     public static void main(String[] args) throws IOException {

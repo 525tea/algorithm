@@ -17,16 +17,16 @@ public class S11053 {
             d[i] = 1; // 초기화 - 자신만 포함
         }
 
+        int ans = 0;
         for (int i = 1; i <= N; i++) {
             for (int j = 1; j < i; j++) {
                 if (num[j] < num[i]) {
                     d[i] = Math.max(d[i], d[j] + 1);
                 }
             }
+            ans = Math.max(ans, d[i]);
         }
-
-        int max = Arrays.stream(d).max().getAsInt();
-        System.out.println(max);
+        System.out.println(ans);
     }
 }
 

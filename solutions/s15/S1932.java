@@ -28,12 +28,15 @@ public class S1932 {
         // DP
         for (int i = 2; i <= N; i++) {
             for (int j = 1; j <= i; j++) {
-                d[i][j] = Math.max(d[i - 1][j - 1], d[i - 1][j]) + arr[i][j]; // 양쪽 경계값은 d[][] = 0 이므로 자동 처리됨
+                d[i][j] = Math.max(d[i - 1][j - 1], d[i - 1][j]) + arr[i][j]; // 양쪽 경계값은 d[][] = 0 이므로 정상 처리됨
             }
         }
 
         // 마지막 줄 중 최댓값 출력
-        int ans = Arrays.stream(d[N], 1, N + 1).max().getAsInt();
+        int ans = -1;
+        for (int i = 1; i <= N; i++) {
+            ans = Math.max(ans, d[N][i]);
+        }
         System.out.println(ans);
     }
 }
